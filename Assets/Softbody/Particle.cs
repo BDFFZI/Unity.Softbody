@@ -16,7 +16,7 @@ public struct Particle
         this.isKinematic = false;
         this.force = Vector3.zero;
         this.velocity = Vector3.zero;
-        color = Color.white;
+        color = new Color(1, 1, 1, 0.3f);
     }
 
     public Vector3 Position { get => position; set => position = value; }
@@ -33,6 +33,45 @@ public struct Particle
         Vector3 velocity = acceleration * deltaTime;
 
         return velocity;
+    }
+
+    public Vector3 GetNextPosition(float deltaTime)
+    {
+        return position + velocity * deltaTime;
+    }
+
+    public Particle GetNextState(float deltaTime)
+    {
+        Particle particle = this;
+
+        if (particle.IsKinematic)
+        {
+            particle.Force = Vector3.zero;
+            particle.Velocity = Vector3.zero;
+            return particle;
+        }
+
+        Vector3 acceleration = Vector3.zero;
+
+        //重力
+        if (particle.UseGravity)
+        {
+            Vector3 gravity = Vector3.down * particle.Mass * 9.8f;
+            acceleration += gravity;
+        }
+
+        //空气阻力
+        Vector3 airDrag = Mathf.Min(particle.Drag * particle.Velocity.sqrMagnitude, particle.Force.magnitude) * -particle.Velocity.normalized;
+        particle.Force += airDrag;
+        //particle.Force *= 1 - particle.Drag;
+
+        acceleration += particle.Force / particle.Mass;
+        particle.Velocity += acceleration * deltaTime;
+        particle.Position += particle.Velocity * deltaTime;
+
+        particle.Force = Vector3.zero;
+
+        return particle;
     }
 
     public void Draw()

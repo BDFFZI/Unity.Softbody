@@ -12,7 +12,7 @@ public class SpringSolver : Solver
     public override void Solve(Softbody softbody, float deltaTime)
     {
         int groupCount = softbody.Springs.Length / maxIterations;
-        Computer computer = new Computer(softbody.Particles, softbody.Springs, groupCount, deltaTime);
+        Computer computer = new Computer(softbody.Particles, softbody.Springs, maxIterations, deltaTime);
         for (int i = 0; i < maxIterations; i++)
         {
             computer.Iterations = i;
@@ -22,11 +22,11 @@ public class SpringSolver : Solver
 
     private struct Computer : IJobParallelFor
     {
-        public Computer(NativeArray<Particle> particles, NativeArray<Spring> springs, int groupCount, float deltaTime)
+        public Computer(NativeArray<Particle> particles, NativeArray<Spring> springs, int maxIterations, float deltaTime)
         {
             this.particles = particles;
             this.springs = springs;
-            this.groupCount = groupCount;
+            this.maxIterations = maxIterations;
             this.deltaTime = deltaTime;
             iterations = 0;
         }
@@ -35,18 +35,18 @@ public class SpringSolver : Solver
 
         [NativeDisableParallelForRestriction] NativeArray<Particle> particles;
         readonly NativeArray<Spring> springs;
-        readonly int groupCount;
+        readonly int maxIterations;
         int iterations;
         float deltaTime;
 
         public void Execute(int index)
         {
-            Spring spring = springs[iterations + index * groupCount];
+            Spring spring = springs[iterations + index * maxIterations];
 
             Particle particleA = particles[spring.ParticleAIndex];
             Particle particleB = particles[spring.ParticleBIndex];
 
-            Vector3 positionAToB = particleB.Position - particleA.Position;
+            Vector3 positionAToB = particleB.GetNextState(deltaTime).Position - particleA.GetNextState(deltaTime).Position;
             Vector3 direction = positionAToB.normalized;
             float distance = positionAToB.magnitude;
 
@@ -57,10 +57,8 @@ public class SpringSolver : Solver
             Vector3 velocityBToA = velocityA - velocityB;
             Vector3 resistance = -spring.Damping * direction * Vector3.Dot(velocityBToA, direction);
 
-            // Vector3 d_ab = -v_ab.normalized * kd * Mathf.Abs(Vector3.Dot(v_ab, pos_ab.normalized));
-            //第二种写法 v normal决定方向 abs dot决定大小，测试出来数据有点小差异 后面验证
-            particleA.Force += elasticForce + resistance;
-            particleB.Force -= elasticForce + resistance;
+            particleA.Force += elasticForce + resistance/** (1 - spring.Damping)*/;
+            particleB.Force -= elasticForce + resistance/** (1 - spring.Damping)*/;
 
             particles[spring.ParticleAIndex] = particleA;
             particles[spring.ParticleBIndex] = particleB;

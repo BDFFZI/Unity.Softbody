@@ -5,16 +5,25 @@ using UnityEngine;
 
 public class Softbody : MonoBehaviour
 {
-    public NativeArray<Particle> Particles { get; private set; }
-    public NativeArray<Spring> Springs { get; private set; }
+    public void SetParticle(int index, Particle particle)
+    {
+        particles[index] = particle;
+    }
+
+
+    public NativeArray<Particle> Particles => particles;
+    public NativeArray<Spring> Springs => springs;
     public Blueprint Blueprint { get => blueprint; }
 
     [SerializeField] Blueprint blueprint;
 
+    NativeArray<Particle> particles;
+    NativeArray<Spring> springs;
+
     private void Awake()
     {
-        Particles = new NativeArray<Particle>(Blueprint.Particles.ToArray(), Allocator.Persistent);
-        Springs = new NativeArray<Spring>(Blueprint.Springs.ToArray(), Allocator.Persistent);
+        particles = new NativeArray<Particle>(Blueprint.Particles.ToArray(), Allocator.Persistent);
+        springs = new NativeArray<Spring>(Blueprint.Springs.ToArray(), Allocator.Persistent);
     }
 
     private void OnDrawGizmos()
@@ -56,7 +65,7 @@ public class Softbody : MonoBehaviour
                 Vector3 partcleAPosition = blueprint.Particles[spring.ParticleAIndex].Position;
                 Vector3 partcleBPosition = blueprint.Particles[spring.ParticleBIndex].Position;
 
-                spring.Draw(partcleAPosition,partcleBPosition);
+                spring.Draw(partcleAPosition, partcleBPosition);
             }
         }
     }

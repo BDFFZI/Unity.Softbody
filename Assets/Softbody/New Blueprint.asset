@@ -15,24 +15,416 @@ MonoBehaviour:
   particles:
   - position: {x: 0, y: 0, z: 0}
     mass: 1
-    drag: 10
-    useGravity: 0
+    drag: 1
+    useGravity: 1
     isKinematic: 1
     force: {x: 0, y: 0, z: 0}
     velocity: {x: 0, y: 0, z: 0}
     color: {r: 1, g: 1, b: 1, a: 1}
-  - position: {x: 0.5, y: 0, z: 0}
+  - position: {x: 0, y: 0, z: 0}
     mass: 1
     drag: 1
     useGravity: 1
     isKinematic: 0
     force: {x: 0, y: 0, z: 0}
     velocity: {x: 0, y: 0, z: 0}
-    color: {r: 0.032397628, g: 1, b: 0, a: 1}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 0, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 0, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 0, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 0, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 0, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 0, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 0, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 0, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 2, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 2, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 2, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 2, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 2, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 2, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 2, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 2, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 2, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 2, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
   springs:
   - particleAIndex: 0
     particleBIndex: 1
-    length: 0.6
+    length: 0.1
     elasticity: 1000
     damping: 45
-    color: {r: 0, g: 0, b: 0, a: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 1
+    particleBIndex: 2
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 2
+    particleBIndex: 3
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 3
+    particleBIndex: 4
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 4
+    particleBIndex: 5
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 5
+    particleBIndex: 6
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 6
+    particleBIndex: 7
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 7
+    particleBIndex: 8
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 8
+    particleBIndex: 9
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 9
+    particleBIndex: 10
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 10
+    particleBIndex: 11
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 11
+    particleBIndex: 12
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 12
+    particleBIndex: 13
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 13
+    particleBIndex: 14
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 14
+    particleBIndex: 15
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 15
+    particleBIndex: 16
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 16
+    particleBIndex: 17
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 17
+    particleBIndex: 18
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 18
+    particleBIndex: 19
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 19
+    particleBIndex: 20
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 20
+    particleBIndex: 21
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 21
+    particleBIndex: 22
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 22
+    particleBIndex: 23
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 23
+    particleBIndex: 24
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 24
+    particleBIndex: 25
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 25
+    particleBIndex: 26
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 26
+    particleBIndex: 27
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 27
+    particleBIndex: 28
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 28
+    particleBIndex: 29
+    length: 0.1
+    elasticity: 1000
+    damping: 45
+    color: {r: 1, g: 1, b: 1, a: 1}

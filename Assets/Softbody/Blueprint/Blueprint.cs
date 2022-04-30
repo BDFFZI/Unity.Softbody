@@ -12,6 +12,4 @@ public class Blueprint : ScriptableObject
 
     [SerializeField] List<Particle> particles;
     [SerializeField] List<Spring> springs;
-
-
 }
