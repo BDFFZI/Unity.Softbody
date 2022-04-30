@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    [SerializeField] Transform transform;
     public struct A
     {
         public int value;
