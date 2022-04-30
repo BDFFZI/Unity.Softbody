@@ -14,17 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particles:
   - position: {x: 0, y: 0, z: 0}
-    mass: 0
-    drag: 0
+    mass: 1
+    drag: 10
     useGravity: 0
+    isKinematic: 1
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - position: {x: 0.5, y: 0, z: 0}
+    mass: 1
+    drag: 1
+    useGravity: 1
     isKinematic: 0
-  - position: {x: 0.03, y: 0, z: 0}
-    mass: 0
-    drag: 0
-    useGravity: 0
-    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 0.032397628, g: 1, b: 0, a: 1}
   springs:
   - particleAIndex: 0
     particleBIndex: 1
-    elasticity: 0
-    damping: 0
+    length: 0.6
+    elasticity: 1000
+    damping: 45
+    color: {r: 0, g: 0, b: 0, a: 0}

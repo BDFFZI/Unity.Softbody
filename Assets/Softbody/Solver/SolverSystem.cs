@@ -18,7 +18,7 @@ public class SolverSystem : MonoBehaviour
     {
         counter += Time.deltaTime;
 
-        if (counter > deltaTime)
+        while (counter > deltaTime)
         {
             for (int solverIndex = 0; solverIndex < solvers.Length; solverIndex++)
             {
@@ -27,6 +27,8 @@ public class SolverSystem : MonoBehaviour
                     solvers[solverIndex].Solve(softbodies[softbodyIndex], deltaTime);
                 }
             }
+
+            counter -= deltaTime;
         }
     }
 }

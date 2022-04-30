@@ -10,24 +10,60 @@ public class Softbody : MonoBehaviour
     public Blueprint Blueprint { get => blueprint; }
 
     [SerializeField] Blueprint blueprint;
+
+    private void Awake()
+    {
+        Particles = new NativeArray<Particle>(Blueprint.Particles.ToArray(), Allocator.Persistent);
+        Springs = new NativeArray<Spring>(Blueprint.Springs.ToArray(), Allocator.Persistent);
+    }
+
     private void OnDrawGizmos()
     {
-        //绘制质点
-        int particlesCount = blueprint.Particles.Count;
-        for (int i = 0; i < particlesCount; i++)
+        if (Application.isPlaying)
         {
-            Gizmos.DrawSphere(blueprint.Particles[i].Position, 0.01f);
+            //绘制质点
+            int particlesCount = Particles.Length;
+            for (int i = 0; i < particlesCount; i++)
+            {
+                Particles[i].Draw();
+            }
+            //绘制弹簧
+            int springsCount = Springs.Length;
+            for (int i = 0; i < springsCount; i++)
+            {
+                Spring spring = Springs[i];
+
+                Vector3 partcleAPosition = Particles[spring.ParticleAIndex].Position;
+                Vector3 partcleBPosition = Particles[spring.ParticleBIndex].Position;
+
+                Gizmos.DrawLine(partcleAPosition, partcleBPosition);
+            }
         }
-        //绘制弹簧
-        int springsCount = blueprint.Springs.Count;
-        for (int i = 0; i < springsCount; i++)
+        else
         {
-            Spring spring = blueprint.Springs[i];
+            //绘制质点
+            int particlesCount = blueprint.Particles.Count;
+            for (int i = 0; i < particlesCount; i++)
+            {
+                blueprint.Particles[i].Draw();
+            }
+            //绘制弹簧
+            int springsCount = blueprint.Springs.Count;
+            for (int i = 0; i < springsCount; i++)
+            {
+                Spring spring = blueprint.Springs[i];
 
-            Vector3 partcleAPosition = blueprint.Particles[spring.ParticleAIndex].Position;
-            Vector3 partcleBPosition = blueprint.Particles[spring.ParticleBIndex].Position;
+                Vector3 partcleAPosition = blueprint.Particles[spring.ParticleAIndex].Position;
+                Vector3 partcleBPosition = blueprint.Particles[spring.ParticleBIndex].Position;
 
-            Gizmos.DrawLine(partcleAPosition, partcleBPosition);
+                spring.Draw(partcleAPosition,partcleBPosition);
+            }
         }
+    }
+
+    private void OnDestroy()
+    {
+        Particles.Dispose();
+        Springs.Dispose();
     }
 }
