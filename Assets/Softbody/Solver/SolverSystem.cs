@@ -11,24 +11,35 @@ public class SolverSystem : MonoBehaviour
 {
     [SerializeField] Softbody[] softbodies;
     [SerializeField] Solver[] solvers;
-    [SerializeField] float deltaTime;
+    //[SerializeField] float deltaTime;
 
-    float counter;
-    void Update()
+    private void FixedUpdate()
     {
-        counter += Time.deltaTime;
-
-        while (counter > deltaTime)
+        for (int solverIndex = 0; solverIndex < solvers.Length; solverIndex++)
         {
-            for (int solverIndex = 0; solverIndex < solvers.Length; solverIndex++)
+            for (int softbodyIndex = 0; softbodyIndex < softbodies.Length; softbodyIndex++)
             {
-                for (int softbodyIndex = 0; softbodyIndex < softbodies.Length; softbodyIndex++)
-                {
-                    solvers[solverIndex].Solve(softbodies[softbodyIndex], deltaTime);
-                }
+                solvers[solverIndex].Solve(softbodies[softbodyIndex], Time.fixedDeltaTime);
             }
-
-            counter -= deltaTime;
         }
     }
+
+    //float counter;
+    //void Update()
+    //{
+    //    counter += Time.deltaTime;
+
+    //    while (counter > deltaTime)
+    //    {
+    //        for (int solverIndex = 0; solverIndex < solvers.Length; solverIndex++)
+    //        {
+    //            for (int softbodyIndex = 0; softbodyIndex < softbodies.Length; softbodyIndex++)
+    //            {
+    //                solvers[solverIndex].Solve(softbodies[softbodyIndex], deltaTime);
+    //            }
+    //        }
+
+    //        counter -= deltaTime;
+    //    }
+    //}
 }

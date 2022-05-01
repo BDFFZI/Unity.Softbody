@@ -11,12 +11,18 @@ public class SpringSolver : Solver
 
     public override void Solve(Softbody softbody, float deltaTime)
     {
-        int groupCount = softbody.Springs.Length / maxIterations;
-        Computer computer = new Computer(softbody.Particles, softbody.Springs, maxIterations, deltaTime);
-        for (int i = 0; i < maxIterations; i++)
+        int totalIterations = Mathf.Min(maxIterations, softbody.Springs.Length);
+
+        float groupSpringCount = softbody.Springs.Length / (float)totalIterations;
+        Computer computer = new Computer(softbody.Particles, softbody.Springs, totalIterations, deltaTime);
+        for (int iterations = 0; iterations < totalIterations; iterations++)
         {
-            computer.Iterations = i;
-            computer.Schedule(groupCount, 3).Complete();
+            int currentSpringCount = Mathf.CeilToInt(groupSpringCount);
+            if (iterations + (currentSpringCount - 1) * totalIterations > softbody.Springs.Length - 1)
+                currentSpringCount--;
+
+            computer.Iterations = iterations;
+            computer.Schedule(currentSpringCount, 3).Complete();
         }
     }
 
@@ -34,7 +40,7 @@ public class SpringSolver : Solver
         public int Iterations { get => iterations; set => iterations = value; }
 
         [NativeDisableParallelForRestriction] NativeArray<Particle> particles;
-        readonly NativeArray<Spring> springs;
+        [NativeDisableParallelForRestriction] readonly NativeArray<Spring> springs;
         readonly int maxIterations;
         int iterations;
         float deltaTime;

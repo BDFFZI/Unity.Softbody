@@ -68,6 +68,7 @@
     <Compile Include="Assets\Softbody\Spring.cs" />
     <Compile Include="Assets\Softbody\Solver\SpringSolver.cs" />
     <Compile Include="Assets\Softbody\Blueprint\BlueprintEditor.cs" />
+    <Compile Include="Assets\Softbody\Solver\Gravity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Softbody\ParticleSpring.asmdef" />

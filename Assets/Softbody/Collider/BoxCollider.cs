@@ -12,11 +12,12 @@ namespace ParticleSpring
         protected override void GetCollisionVector(NativeArray<Particle> particles, NativeArray<Vector3> collisionVectors)
         {
             Vector3 position = transform.TransformPoint(ColliderInfo.center);
-            Vector3 right = transform.right * ColliderInfo.size.x;
-            Vector3 up = transform.up * ColliderInfo.size.y;
-            Vector3 forward = transform.forward * ColliderInfo.size.z;
+            Vector3 right = 0.5f * ColliderInfo.size.x * transform.right;
+            Vector3 up = 0.5f * ColliderInfo.size.y * transform.up;
+            Vector3 forward = 0.5f * ColliderInfo.size.z * transform.forward;
 
-            Computer computer = new Computer(position, right, up, forward, particles, collisionVectors);
+            Computer computer = new Computer(position, right, up, forward,
+                particles, collisionVectors);
             computer.Schedule(collisionVectors.Length, 3).Complete();
         }
 
@@ -31,7 +32,6 @@ namespace ParticleSpring
                 this.forward = forward;
                 this.particles = particles;
                 this.collisionVectors = collisionVectors;
-                List<Particle> list = new List<Particle>();
             }
 
             readonly Vector3 position;
@@ -48,26 +48,26 @@ namespace ParticleSpring
                 Vector3 relativePosition = particle.Position - position;
 
                 NativeArray<float> boxlength = new NativeArray<float>(6, Allocator.Temp);
-                boxlength[0] = right.sqrMagnitude;
-                boxlength[1] = up.sqrMagnitude;
-                boxlength[2] = forward.sqrMagnitude;
+                boxlength[0] = right.magnitude;
+                boxlength[1] = up.magnitude;
+                boxlength[2] = forward.magnitude;
 
                 NativeArray<float> distanceFromOrigin = new NativeArray<float>(6, Allocator.Temp);
-                distanceFromOrigin[0] = Vector3.Project(relativePosition, right).sqrMagnitude;
-                distanceFromOrigin[1] = Vector3.Project(relativePosition, up).sqrMagnitude;
-                distanceFromOrigin[2] = Vector3.Project(relativePosition, forward).sqrMagnitude;
+                distanceFromOrigin[0] = Vector3.Project(relativePosition, right).magnitude * Mathf.Sign(Vector3.Dot(relativePosition, right));
+                distanceFromOrigin[1] = Vector3.Project(relativePosition, up).magnitude * Mathf.Sign(Vector3.Dot(relativePosition, up));
+                distanceFromOrigin[2] = Vector3.Project(relativePosition, forward).magnitude * Mathf.Sign(Vector3.Dot(relativePosition, forward));
                 distanceFromOrigin[3] = -distanceFromOrigin[0];
                 distanceFromOrigin[4] = -distanceFromOrigin[1];
                 distanceFromOrigin[5] = -distanceFromOrigin[2];
 
 
                 NativeArray<float> distanceFromWall = new NativeArray<float>(6, Allocator.Temp);
-                distanceFromWall[0] = boxlength[0] - distanceFromWall[0];
-                distanceFromWall[1] = boxlength[1] - distanceFromWall[1];
-                distanceFromWall[2] = boxlength[2] - distanceFromWall[2];
-                distanceFromWall[3] = boxlength[0] - distanceFromWall[3];
-                distanceFromWall[4] = boxlength[1] - distanceFromWall[4];
-                distanceFromWall[5] = boxlength[2] - distanceFromWall[5];
+                distanceFromWall[0] = boxlength[0] - distanceFromOrigin[0];
+                distanceFromWall[1] = boxlength[1] - distanceFromOrigin[1];
+                distanceFromWall[2] = boxlength[2] - distanceFromOrigin[2];
+                distanceFromWall[3] = boxlength[0] - distanceFromOrigin[3];
+                distanceFromWall[4] = boxlength[1] - distanceFromOrigin[4];
+                distanceFromWall[5] = boxlength[2] - distanceFromOrigin[5];
 
                 int minDistanceIndex = distanceFromWall.Min(out float minDistance);
                 if (minDistance < 0)
@@ -76,8 +76,7 @@ namespace ParticleSpring
                     return;
                 }
 
-
-                Vector3 collisionVector = Vector3.zero;
+                Vector3 collisionVector;
                 switch (minDistanceIndex)
                 {
                     case 0:
@@ -103,6 +102,7 @@ namespace ParticleSpring
                 }
 
                 collisionVectors[index] = collisionVector;
+                //Debug.DrawRay(particle.Position, collisionVectors[index], Color.blue);
             }
         }
     }

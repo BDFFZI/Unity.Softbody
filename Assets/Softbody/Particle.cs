@@ -27,6 +27,10 @@ public struct Particle
     public Vector3 Force { get => force; set => force = value; }
     public Vector3 Velocity { get => velocity; set => velocity = value; }
 
+    public Vector3 ForceToPositionOffset(Vector3 force, float deltaTime)
+    {
+        return VelocityToPositionOffset(ForceToVelocity(force, deltaTime), deltaTime);
+    }
     public Vector3 ForceToVelocity(Vector3 force, float deltaTime)
     {
         Vector3 acceleration = force / mass;
@@ -40,12 +44,15 @@ public struct Particle
         Vector3 force = acceleration * mass;
         return force;
     }
+    public Vector3 VelocityToPositionOffset(Vector3 velocity, float deltaTime)
+    {
+        return velocity * deltaTime;
+    }
 
     public Vector3 GetNextPosition(float deltaTime)
     {
-        return position + velocity * deltaTime;
+        return Position + Velocity * deltaTime;
     }
-
     public Particle GetNextState(float deltaTime)
     {
         Particle particle = this;
@@ -62,7 +69,7 @@ public struct Particle
         //ÖØÁ¦
         if (particle.UseGravity)
         {
-            Vector3 gravity = Vector3.down * particle.Mass * 9.8f;
+            Vector3 gravity = 9.8f * particle.Mass * Vector3.down;
             acceleration += gravity;
         }
 
@@ -73,7 +80,7 @@ public struct Particle
 
         acceleration += particle.Force / particle.Mass;
         particle.Velocity += acceleration * deltaTime;
-        particle.Position += particle.Velocity * deltaTime;
+        particle.Position += VelocityToPositionOffset(particle.Velocity, deltaTime);
 
         particle.Force = Vector3.zero;
 
@@ -86,10 +93,11 @@ public struct Particle
 
         Gizmos.color = color;
         Gizmos.DrawSphere(position, 0.01f);
-        //if (velocity != Vector3.zero)
-        //{
-        //    Gizmos.DrawRay(position, velocity);
-        //}
+        if (velocity != Vector3.zero)
+        {
+            Gizmos.color *= Color.blue;
+            Gizmos.DrawRay(position, velocity);
+        }
 
         Gizmos.color = source;
     }

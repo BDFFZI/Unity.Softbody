@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Utility\NativeArrayUtility.cs" />
+    <Compile Include="Assets\Utility\ColliderUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Utility\Utility.asmdef" />

@@ -1,0 +1,10 @@
+﻿[*.cs]
+
+# IDE0059: 不需要赋值
+dotnet_diagnostic.IDE0059.severity = warning
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = warning
+
+# Default severity for analyzer diagnostics with category 'Style'
+dotnet_analyzer_diagnostic.category-Style.severity = silent

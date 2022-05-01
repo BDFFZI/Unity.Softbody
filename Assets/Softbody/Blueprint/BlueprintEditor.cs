@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Codice.CM.Common.CmCallContext;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.ParticleSystem;
 
 public class BlueprintEditor : MonoBehaviour
 {
@@ -105,14 +108,16 @@ public class BlueprintEditor : MonoBehaviour
     [ContextMenu("CreateCube")]
     void CreateCube()
     {
+        int length = 5;
+
         blueprint.Particles = new List<Particle>();
-        for (int x = 0; x < 10; x++)
+        for (int x = 0; x < length; x++)
         {
-            for (int y = 0; y < 10; y++)
+            for (int y = 0; y < length; y++)
             {
-                for (int z = 0; z < 10; z++)
+                for (int z = 0; z < length; z++)
                 {
-                    blueprint.Particles.Add(new Particle(new Vector3(x, y, z) / 10));
+                    blueprint.Particles.Add(new Particle(new Vector3(x, y, z) / length));
                 }
             }
         }
@@ -124,7 +129,7 @@ public class BlueprintEditor : MonoBehaviour
         //blueprint.Particles[9] = particle9;
 
         blueprint.Springs = new List<Spring>();
-        float distance = Mathf.Sqrt(0.1f * 0.1f * 3);
+        float distance = Mathf.Sqrt(3f / (length * length));
         for (int current = 0; current < blueprint.Particles.Count; current++)
         {
             for (int target = current + 1; target < blueprint.Particles.Count; target++)
@@ -133,6 +138,74 @@ public class BlueprintEditor : MonoBehaviour
                 Particle targetParticle = blueprint.Particles[target];
 
                 if (Vector3.Distance(currentParticle.Position, targetParticle.Position) < distance)
+                {
+                    blueprint.Springs.Add(new Spring(current, target, blueprint.Particles, 4000, 1));
+                }
+            }
+        }
+    }
+
+    [SerializeField] Mesh mesh;
+
+    [ContextMenu("CreateMesh")]
+    void CreateMesh()
+    {
+        float minDistance = 0.3f;
+        //外层质点
+        Vector3[] vertices = mesh.vertices;
+
+        blueprint.Particles = vertices.Select(vertex => new Particle(vertex)).ToList();
+
+
+        blueprint.Springs = new List<Spring>();
+        int[] traingles = mesh.triangles;
+        for (int i = 0; i < traingles.Length; i += 3)
+        {
+            int particle0Index = traingles[i + 0];
+            int particle1Index = traingles[i + 1];
+            int particle2Index = traingles[i + 2];
+
+            blueprint.Springs.Add(new Spring(particle0Index, particle1Index, blueprint.Particles, 3000, 1));
+            blueprint.Springs.Add(new Spring(particle1Index, particle2Index, blueprint.Particles, 3000, 1));
+            blueprint.Springs.Add(new Spring(particle2Index, particle0Index, blueprint.Particles, 3000, 1));
+        }
+
+        List<Vector3> insidePositions = new List<Vector3>();
+
+        //内部质点
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            Vector3 currentVertex = vertices[i];
+            currentVertex = Vector3.MoveTowards(currentVertex, Vector3.zero, minDistance);
+            while (currentVertex != Vector3.zero)
+            {
+                insidePositions.Add(currentVertex);
+                currentVertex = Vector3.MoveTowards(currentVertex, Vector3.zero, minDistance);
+            }
+        }
+
+        //合并内部质点
+        for (int current = 0; current < insidePositions.Count; current++)
+        {
+            for (int target = current + 1; target < insidePositions.Count; target++)
+            {
+                if (Vector3.Distance(insidePositions[current], insidePositions[target]) < minDistance)
+                {
+                    insidePositions.RemoveAt(target);
+                    target--;
+                }
+            }
+        }
+
+        blueprint.Particles.AddRange(insidePositions.Select(position => new Particle(position)));
+
+
+        //生成弹簧
+        for (int current = 0; current < blueprint.Particles.Count; current++)
+        {
+            for (int target = current + 1; target < blueprint.Particles.Count; target++)
+            {
+                if (Vector3.Distance(blueprint.Particles[current].Position, blueprint.Particles[target].Position) < minDistance * 2)
                 {
                     blueprint.Springs.Add(new Spring(current, target, blueprint.Particles, 3000, 1));
                 }
