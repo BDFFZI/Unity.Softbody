@@ -116,9 +116,9 @@ public class BlueprintEditor : MonoBehaviour
                 }
             }
         }
-        Particle particle0 = blueprint.Particles[0];
-        particle0.IsKinematic = true;
-        blueprint.Particles[0] = particle0;
+        //Particle particle0 = blueprint.Particles[0];
+        //particle0.IsKinematic = true;
+        //blueprint.Particles[0] = particle0;
         //Particle particle9 = blueprint.Particles[9];
         //particle9.IsKinematic = true;
         //blueprint.Particles[9] = particle9;

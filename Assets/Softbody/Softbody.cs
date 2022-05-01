@@ -7,6 +7,7 @@ public class Softbody : MonoBehaviour
 {
     public void SetParticle(int index, Particle particle)
     {
+        
         particles[index] = particle;
     }
 

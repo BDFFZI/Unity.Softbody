@@ -34,6 +34,12 @@ public struct Particle
 
         return velocity;
     }
+    public Vector3 VelocityToForce(Vector3 velocity, float deltaTime)
+    {
+        Vector3 acceleration = velocity / deltaTime;
+        Vector3 force = acceleration * mass;
+        return force;
+    }
 
     public Vector3 GetNextPosition(float deltaTime)
     {

@@ -8,11 +8,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>Softbody</RootNamespace>
-    <ProjectGuid>{AD8F1DE6-E0FE-68A7-87EB-96A321BC29F2}</ProjectGuid>
+    <RootNamespace></RootNamespace>
+    <ProjectGuid>{83DB1A85-A574-ED0B-B545-F6EB4D998328}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Softbody</AssemblyName>
+    <AssemblyName>Utility</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -56,20 +56,10 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Softbody\Softbody.cs" />
-    <Compile Include="Assets\Softbody\Solver\ParticleSolver.cs" />
-    <Compile Include="Assets\Softbody\Blueprint\BlueprintDrawer.cs" />
-    <Compile Include="Assets\Softbody\Particle.cs" />
-    <Compile Include="Assets\Softbody\Solver\SolverSystem.cs" />
-    <Compile Include="Assets\Softbody\Blueprint\Blueprint.cs" />
-    <Compile Include="Assets\Softbody\Spring.cs" />
-    <Compile Include="Assets\Softbody\Solver\SpringSolver.cs" />
-    <Compile Include="Assets\Softbody\Blueprint\BlueprintEditor.cs" />
-    <Compile Include="Assets\Softbody\Tools\ControlPoint.cs" />
-    <Compile Include="Assets\Softbody\Collider\BoxCollider.cs" />
+    <Compile Include="Assets\Utility\NativeArrayUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Softbody\ParticleSpring.asmdef" />
+    <None Include="Assets\Utility\Utility.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

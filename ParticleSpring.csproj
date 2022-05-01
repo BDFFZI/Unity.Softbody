@@ -56,8 +56,11 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Softbody\Tools\ControlPoint.cs" />
     <Compile Include="Assets\Softbody\Softbody.cs" />
+    <Compile Include="Assets\Softbody\Collider\BoxCollider.cs" />
     <Compile Include="Assets\Softbody\Solver\ParticleSolver.cs" />
+    <Compile Include="Assets\Softbody\Collider\Collider.cs" />
     <Compile Include="Assets\Softbody\Blueprint\BlueprintDrawer.cs" />
     <Compile Include="Assets\Softbody\Particle.cs" />
     <Compile Include="Assets\Softbody\Solver\SolverSystem.cs" />
@@ -65,9 +68,6 @@
     <Compile Include="Assets\Softbody\Spring.cs" />
     <Compile Include="Assets\Softbody\Solver\SpringSolver.cs" />
     <Compile Include="Assets\Softbody\Blueprint\BlueprintEditor.cs" />
-    <Compile Include="Assets\Softbody\Tools\ControlPoint.cs" />
-    <Compile Include="Assets\Softbody\Collider\BoxCollider.cs" />
-    <Compile Include="Assets\Softbody\Collider\Collider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Softbody\ParticleSpring.asmdef" />
@@ -720,6 +720,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Utility.csproj">
+      <Project>{83DB1A85-A574-ED0B-B545-F6EB4D998328}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

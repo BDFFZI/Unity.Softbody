@@ -1,7 +1,9 @@
 {
     "name": "ParticleSpring",
     "rootNamespace": "ParticleSpring",
-    "references": [],
+    "references": [
+        "GUID:47c1ec4b967c56445b00191abff083e8"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
