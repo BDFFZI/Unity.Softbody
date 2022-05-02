@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace ParticleSpring
 {
     public abstract class Collider<TColliderType> : Solver
         where TColliderType : Collider
     {
+        /// <summary>
+        /// 注意这不是力这是速度
+        /// </summary>
         public Vector3 Resistance { get; private set; }
         public Vector3 ResistancePosition { get; private set; }
         public float FrictionCoefficient => colliderInfo.material.dynamicFriction;
@@ -33,7 +37,8 @@ namespace ParticleSpring
             {
                 totalResistances += resistances[i];
             }
-            Resistance = totalResistances;
+            if (totalResistances.magnitude > Resistance.magnitude)
+                Resistance = totalResistances;
 
             float totalResistancesMagnitude = totalResistances.magnitude;
             if (totalResistancesMagnitude != 0)
@@ -89,39 +94,50 @@ namespace ParticleSpring
 
             public void Execute(int index)
             {
-                Vector3 collisionVector = collisionVectors[index];
-                if (collisionVector.magnitude == 0)
+                Particle particle = particles[index];
+                if (particle.IsKinematic)
                     return;
 
-                Particle particle = particles[index];
+                Vector3 collisionVector = collisionVectors[index];
+                if (collisionVector == Vector3.zero)
+                    return;
+
+                Debug.Assert(particle.Force == Vector3.zero);
+
+                //Vector3 normal = collisionVector.normalized;
+                //Vector3 motionDirection = Vector3.Cross(Vector3.Cross(normal, particle.Velocity.normalized), normal);
+                //Vector3 motionVelocity = Vector3.Project(particle.Velocity, motionDirection);
+
+                //particle.Position += collisionVector - particle.VelocityToPositionOffset(motionVelocity, deltaTime);
+                //particle.Velocity = Vector3.zero;
+
+                Debug.DrawRay(particle.Position, collisionVector, Color.green);
 
                 Vector3 normal = collisionVector.normalized;
-                Vector3 force = particle.VelocityToForce(particle.Velocity, deltaTime);
-                Vector3 normalForce = Vector3.Project(force, normal);
+                Vector3 velocity = particle.Velocity;
+                Vector3 motionDirection = Vector3.Cross(Vector3.Cross(normal, velocity.normalized), normal).normalized;
+                Vector3 motionVelocity = Vector3.Project(particle.Velocity, motionDirection);
+                Vector3 normalVelocity = Vector3.Project(particle.Velocity, -normal);
                 //摩擦力
-                Vector3 frictionDirection = Vector3.Cross(normal, Vector3.Cross(normal, force.normalized));
-                float frictionDirectionforceMagnitude = Vector3.Project(force, -frictionDirection).magnitude;
-                float frictionmMagnitude = Mathf.Min(frictionDirectionforceMagnitude, normalForce.magnitude * frictionCoefficient);
-                Vector3 friction = frictionDirection * frictionmMagnitude;
+                float frictionmMagnitude = Mathf.Min(motionVelocity.magnitude, normalVelocity.magnitude * frictionCoefficient);
+                Vector3 friction = -motionDirection * frictionmMagnitude;
+                particle.Velocity += friction;
+                particle.Position += particle.VelocityToPositionOffset(friction, deltaTime);
+                resistances[index] = -friction;
 
                 //弹力
-                Vector3 elasticity = -normalForce * (1 + elasticityCoefficient);
+                Vector3 elasticity = (1 + elasticityCoefficient) * -normalVelocity;
+                particle.Velocity += elasticity;
+                particle.Position += collisionVector;
+                resistances[index] = -elasticity;
 
                 //当碰撞体移动时带动质点
-                if (frictionDirectionforceMagnitude != 0)
-                {
-                    float frictionRate = frictionmMagnitude / frictionDirectionforceMagnitude;
-                    Vector3 lastParticleLocalPosition = lastTransform.MultiplyPoint(particle.Position);
-                    Vector3 currentParticleLocalPosition = currentTransform.MultiplyPoint(particle.Position);
-                    Vector3 positionOffset = (lastParticleLocalPosition - currentParticleLocalPosition) * frictionRate;
-                    particle.Position += currentTransform.inverse.MultiplyVector(positionOffset);
-                }
+                float frictionRate = /*frictionmMagnitude / motionForceMagnitude*/1;
+                Vector3 lastParticleLocalPosition = lastTransform.MultiplyPoint(particle.Position);
+                Vector3 currentParticleLocalPosition = currentTransform.MultiplyPoint(particle.Position);
+                Vector3 positionOffset = (lastParticleLocalPosition - currentParticleLocalPosition) * frictionRate;
+                particle.Position += currentTransform.inverse.MultiplyVector(positionOffset);
 
-                Vector3 totalForce = friction + elasticity;
-                particle.Velocity += particle.ForceToVelocity(totalForce, deltaTime);
-                particle.Position += collisionVector;
-
-                resistances[index] = -totalForce;
                 particles[index] = particle;
             }
         }
@@ -129,6 +145,11 @@ namespace ParticleSpring
         private void Awake()
         {
             lastTransform = transform.worldToLocalMatrix;
+        }
+
+        private void LateUpdate()
+        {
+            Resistance = Vector3.zero;
         }
 
         Matrix4x4 lastTransform;

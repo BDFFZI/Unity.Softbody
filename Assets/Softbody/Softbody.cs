@@ -1,21 +1,22 @@
+using ParticleSpring;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class Softbody : MonoBehaviour
 {
     public void SetParticle(int index, Particle particle)
     {
-        
+
         particles[index] = particle;
     }
-
-
     public NativeArray<Particle> Particles => particles;
     public NativeArray<Spring> Springs => springs;
     public Blueprint Blueprint { get => blueprint; }
 
+    [SerializeField] MeshUpdater meshUpdater;
     [SerializeField] Blueprint blueprint;
 
     NativeArray<Particle> particles;
@@ -24,11 +25,40 @@ public class Softbody : MonoBehaviour
     private void Awake()
     {
         particles = new NativeArray<Particle>(Blueprint.Particles.ToArray(), Allocator.Persistent);
+        for (int i = 0; i < particles.Length; i++)
+        {
+            Particle particle = particles[i];
+            particle.Position = transform.localToWorldMatrix.MultiplyPoint(particle.Position);
+            particles[i] = particle;
+        }
+
         springs = new NativeArray<Spring>(Blueprint.Springs.ToArray(), Allocator.Persistent);
+    }
+
+    private void Update()
+    {
+        Vector3 center = Vector3.zero;
+        for (int i = 0; i < particles.Length; i++)
+        {
+            center += particles[i].Position;
+        }
+        center /= particles.Length;
+        transform.position = center;
+
+        int length = meshUpdater.Vertices.Length;
+        Matrix4x4 worldToLocalMatrix = transform.worldToLocalMatrix;
+
+        for (int i = 0; i < length; i++)
+        {
+            meshUpdater.Vertices[i] = worldToLocalMatrix.MultiplyPoint3x4(particles[i].Position);
+        }
     }
 
     private void OnDrawGizmos()
     {
+        if (Application.isPlaying == false)
+            Gizmos.matrix = transform.localToWorldMatrix;
+
         if (Application.isPlaying)
         {
             //»æÖÆÖÊµã

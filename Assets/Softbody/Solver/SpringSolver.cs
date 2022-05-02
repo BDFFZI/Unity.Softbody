@@ -56,12 +56,12 @@ public class SpringSolver : Solver
             Vector3 direction = positionAToB.normalized;
             float distance = positionAToB.magnitude;
 
-            Vector3 elasticForce = spring.Elasticity * direction * (distance - spring.Length);
+            Vector3 elasticForce = (distance - spring.Length) * spring.Elasticity * direction;
 
             Vector3 velocityA = particleA.ForceToVelocity(elasticForce, deltaTime);
             Vector3 velocityB = particleB.ForceToVelocity(-elasticForce, deltaTime);
             Vector3 velocityBToA = velocityA - velocityB;
-            Vector3 resistance = -spring.Damping * direction * Vector3.Dot(velocityBToA, direction);
+            Vector3 resistance = -spring.Damping * Vector3.Dot(velocityBToA, direction) * direction;
 
             particleA.Force += elasticForce + resistance/** (1 - spring.Damping)*/;
             particleB.Force -= elasticForce + resistance/** (1 - spring.Damping)*/;

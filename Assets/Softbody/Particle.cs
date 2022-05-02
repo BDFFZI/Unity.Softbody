@@ -53,6 +53,7 @@ public struct Particle
     {
         return Position + Velocity * deltaTime;
     }
+
     public Particle GetNextState(float deltaTime)
     {
         Particle particle = this;
@@ -64,25 +65,16 @@ public struct Particle
             return particle;
         }
 
-        Vector3 acceleration = Vector3.zero;
-
-        //重力
-        if (particle.UseGravity)
-        {
-            Vector3 gravity = 9.8f * particle.Mass * Vector3.down;
-            acceleration += gravity;
-        }
-
         //空气阻力
         Vector3 airDrag = Mathf.Min(particle.Drag * particle.Velocity.sqrMagnitude, particle.Force.magnitude) * -particle.Velocity.normalized;
-        particle.Force += airDrag;
-        //particle.Force *= 1 - particle.Drag;
+        particle.force += airDrag;
 
-        acceleration += particle.Force / particle.Mass;
+        //将力转换为速度
+        Vector3 acceleration = particle.Force / particle.Mass;
         particle.Velocity += acceleration * deltaTime;
-        particle.Position += VelocityToPositionOffset(particle.Velocity, deltaTime);
-
         particle.Force = Vector3.zero;
+
+        particle.Position += VelocityToPositionOffset(particle.Velocity, deltaTime);
 
         return particle;
     }
@@ -95,7 +87,6 @@ public struct Particle
         Gizmos.DrawSphere(position, 0.01f);
         if (velocity != Vector3.zero)
         {
-            Gizmos.color *= Color.blue;
             Gizmos.DrawRay(position, velocity);
         }
 

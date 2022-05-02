@@ -59,6 +59,7 @@
     <Compile Include="Assets\Softbody\Tools\ControlPoint.cs" />
     <Compile Include="Assets\Softbody\Softbody.cs" />
     <Compile Include="Assets\Softbody\Collider\BoxCollider.cs" />
+    <Compile Include="Assets\Softbody\Solver\Gravity.cs" />
     <Compile Include="Assets\Softbody\Solver\ParticleSolver.cs" />
     <Compile Include="Assets\Softbody\Collider\Collider.cs" />
     <Compile Include="Assets\Softbody\Blueprint\BlueprintDrawer.cs" />
@@ -68,7 +69,8 @@
     <Compile Include="Assets\Softbody\Spring.cs" />
     <Compile Include="Assets\Softbody\Solver\SpringSolver.cs" />
     <Compile Include="Assets\Softbody\Blueprint\BlueprintEditor.cs" />
-    <Compile Include="Assets\Softbody\Solver\Gravity.cs" />
+    <Compile Include="Assets\Softbody\Mesh\MeshUpdater.cs" />
+    <Compile Include="Assets\Softbody\Mesh\SkinMeshUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Softbody\ParticleSpring.asmdef" />

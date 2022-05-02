@@ -9,6 +9,9 @@ using static UnityEngine.ParticleSystem;
 public class BlueprintEditor : MonoBehaviour
 {
     [SerializeField] Blueprint blueprint;
+    [SerializeField] Mesh mesh;
+    [SerializeField] float elasticity;
+    [SerializeField] float drag;
 
     [ContextMenu("CreateLine")]
     void CreateLine()
@@ -145,17 +148,13 @@ public class BlueprintEditor : MonoBehaviour
         }
     }
 
-    [SerializeField] Mesh mesh;
-
     [ContextMenu("CreateMesh")]
     void CreateMesh()
     {
         float minDistance = 0.3f;
         //外层质点
         Vector3[] vertices = mesh.vertices;
-
         blueprint.Particles = vertices.Select(vertex => new Particle(vertex)).ToList();
-
 
         blueprint.Springs = new List<Spring>();
         int[] traingles = mesh.triangles;
@@ -197,7 +196,7 @@ public class BlueprintEditor : MonoBehaviour
             }
         }
 
-        blueprint.Particles.AddRange(insidePositions.Select(position => new Particle(position)));
+        blueprint.Particles.AddRange(insidePositions.Select(position => new Particle(position) { }));
 
 
         //生成弹簧

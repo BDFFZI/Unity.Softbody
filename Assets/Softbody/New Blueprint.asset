@@ -15,10 +15,70 @@ MonoBehaviour:
   particles:
   - position: {x: 0, y: 0, z: 0}
     mass: 1
-    drag: 1
+    drag: 0
     useGravity: 1
     isKinematic: 0
     force: {x: 0, y: 0, z: 0}
     velocity: {x: 0, y: 0, z: 0}
     color: {r: 1, g: 0, b: 0, a: 1}
-  springs: []
+  - position: {x: 1, y: 0, z: 0}
+    mass: 1
+    drag: 0
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0, b: 0, a: 1}
+  - position: {x: 0, y: 1, z: 0}
+    mass: 1
+    drag: 0
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0, b: 0, a: 1}
+  - position: {x: 0, y: 0, z: 1}
+    mass: 1
+    drag: 0
+    useGravity: 1
+    isKinematic: 0
+    force: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0, b: 0, a: 1}
+  springs:
+  - particleAIndex: 0
+    particleBIndex: 1
+    length: 1
+    elasticity: 3000
+    damping: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 0
+    particleBIndex: 2
+    length: 1
+    elasticity: 3000
+    damping: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 0
+    particleBIndex: 3
+    length: 1
+    elasticity: 3000
+    damping: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 1
+    particleBIndex: 3
+    length: 1
+    elasticity: 3000
+    damping: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 1
+    particleBIndex: 2
+    length: 1
+    elasticity: 3000
+    damping: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - particleAIndex: 2
+    particleBIndex: 3
+    length: 1
+    elasticity: 3000
+    damping: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
